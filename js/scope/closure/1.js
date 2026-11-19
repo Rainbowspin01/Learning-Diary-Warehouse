@@ -1,0 +1,14 @@
+var arr = []
+
+for(var i = 1;i<=5;i++){
+function foo(j){
+    arr.push(function(){
+        console.log(j)
+    })
+}
+foo(i)
+}
+
+for(var j = 0;j<arr.length;j++){
+    arr[j]()
+}
