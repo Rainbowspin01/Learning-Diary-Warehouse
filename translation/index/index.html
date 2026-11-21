@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script src="./index.js" defer></script>
+    <title>译述 · 实时翻译</title>
+</head>
+<body>
+<div class="bubbles" aria-hidden="true" id="bubbles"></div>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>译述</h1>
+      <p class="subtitle">输入内容，点击翻译查看译文</p>
+    </div>
+  </header>
+
+  <div class="lang-bar">
+    <span class="field-label" id="src-label">源语言</span>
+    <select id="src-lang" aria-labelledby="src-label"></select>
+
+    <button class="swap-btn" id="swap" type="button" aria-label="交换源语言和目标语言">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 4v16M7 4l-3 3M7 4l3 3M17 20V4M17 20l-3-3M17 20l3-3"/>
+      </svg>
+    </button>
+
+    <span class="field-label" id="tgt-label">目标语言</span>
+    <select id="tgt-lang" aria-labelledby="tgt-label"></select>
+  </div>
+
+  <main class="grid">
+    <section class="panel" aria-labelledby="input-title">
+      <div class="panel-head">
+        <span id="input-title">原文</span>
+        <div class="head-actions">
+          <span class="count"><span id="char-count">0</span> 字</span>
+          <button class="translate-btn" id="translateBtn" type="button">翻译</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <textarea id="input" placeholder="在此输入要翻译的内容"></textarea>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="output-title">
+      <div class="panel-head">
+        <span id="output-title">译文</span>
+        <button class="copy-btn" id="copy" type="button">复制</button>
+      </div>
+      <div class="panel-body">
+        <div class="output" id="output" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <p class="footer-note">当前为演示版本，仅支持翻译中文、英文、日语、法语、西班牙语、德语。</p>
+</div>
+</body>
+</html>

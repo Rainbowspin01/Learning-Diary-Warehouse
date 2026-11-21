@@ -1,5 +1,6 @@
+// 方法二：用空间换时间
 let nums = [2,7,11,15], target = 9
-//用空间换时间
+
 var twoSum = function(nums, target) {
     let obj = {
 

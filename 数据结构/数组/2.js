@@ -4,6 +4,7 @@
 // 你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。
 
 // 你可以按任意顺序返回答案。
+//方法一：暴力破解
 let nums = [2,7,11,15], target = 9
 var twoSum = function(nums, target) {
     for(let i = 0;i<nums.length;i++){
