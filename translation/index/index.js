@@ -51,13 +51,6 @@
     charCount.textContent = input.value.trim().length;
   }
 
-  function langName(value) {
-    for (var i = 0; i < LANGS.length; i++) {
-      if (LANGS[i].value === value) return LANGS[i].name;
-    }
-    return value;
-  }
-
   function renderOutput() {
     var text = input.value;
     updateCount();
@@ -91,37 +84,30 @@
     loading.textContent = "正在翻译…";
     output.appendChild(loading);
 
-    // 同源代理：由本地 server.js 把 /api/chat 转发给 Ollama
-    fetch("/api/chat", {
+    // 同源代理：由本地 server.js 调用翻译服务，密钥保存在服务端
+    fetch("/api/translate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "qwen3.5:9b",
-        stream: false,
-        messages: [
-          {
-            role: "system",
-            content: `你是一个专业的翻译，只返回最简单的翻译内容，将${langName(srcSel.value)}翻译成${langName(tgtSel.value)}`
-          },
-          {
-            role: "user",
-            content: text
-          }
-        ]
+        text: text,
+        source: srcSel.value,
+        target: tgtSel.value
       })
     })
       .then(function (res) {
-        return res.json();
+        return res.json().then(function (data) {
+          return { ok: res.ok, data: data };
+        });
       })
-      .then( (data) => {
-        console.log(data);
-        var result = data && data.message && data.message.content;
-        if (!result) throw new Error("模型没有返回内容");
-        output.textContent = result.trim();
+      .then(function (result) {
+        if (!result.ok || !result.data || !result.data.text) {
+          throw new Error((result.data && result.data.error) || "翻译失败");
+        }
+        output.textContent = result.data.text.trim();
       })
-      .catch( (err) => {
+      .catch(function (err) {
         output.textContent = "翻译失败：" + err.message;
         console.error(err);
       });

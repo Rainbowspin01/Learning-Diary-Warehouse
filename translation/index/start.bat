@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
-rem 启动同源代理服务：托管页面，并把 /api/chat 转发给本地 Ollama
-rem 使用前请确保 Ollama 已启动（http://127.0.0.1:11434）
+rem 启动同源代理服务：托管页面，并把 /api/translate 转发给公开翻译接口（MyMemory）
+rem 该接口免注册、无需密钥，免费额度约每天 1000 词
 cd /d "%~dp0.."
 
 where node >nul 2>nul
